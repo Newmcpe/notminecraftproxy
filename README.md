@@ -11,8 +11,6 @@ Unlike a traditional MC bot, you can login to it as a normal MC server and contr
 
 The primary purpose is to have accounts always online in-game and securely shared by multiple people.
 
-This project is also used to support the [2b2t.vc API](https://api.2b2t.vc) and [Discord Bot](https://bot.2b2t.vc).
-
 <details>
     <summary>What is a proxy?</summary>
 
