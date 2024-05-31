@@ -7,6 +7,8 @@ plugins {
     id("org.graalvm.buildtools.native") version "0.10.2"
     // todo: use official version when https://github.com/johnrengelman/shadow/pull/879 is merged
     id("io.github.goooler.shadow") version "8.1.7"
+    kotlin("jvm") version "2.0.0"
+    kotlin("plugin.lombok") version "2.0.0"
 }
 
 group = "com.zenith"
@@ -63,6 +65,7 @@ repositories {
     }
     maven("https://repo1.maven.org/maven2/") { name = "maven central" }
     mavenLocal()
+    mavenCentral()
 }
 
 val shade: Configuration by configurations.creating
@@ -74,6 +77,8 @@ val fastutilVersion = "b3ff25af48"
 val jdbiVersion = "3.45.1"
 
 dependencies {
+    //kotlin coroutines
+    shade("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     shade("org.jdbi:jdbi3-core:$jdbiVersion")
     shade("org.jdbi:jdbi3-postgres:$jdbiVersion")
     shade("com.zaxxer:HikariCP:5.1.0")
@@ -134,9 +139,25 @@ dependencies {
     testCompileOnly("org.projectlombok:lombok:$lombokVersion")
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
     testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks {
+    val kotlinOptions: org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions.() -> Unit = {
+        apiVersion = "1.9"
+        languageVersion = "1.9"
+        jvmTarget = "21"
+        freeCompilerArgs = listOf(
+            "-Xjvm-default=all",
+            "-Xopt-in=kotlin.ExperimentalStdlibApi"
+        )
+    }
+    compileKotlin {
+        kotlinOptions(kotlinOptions)
+    }
+    compileTestKotlin {
+        kotlinOptions(kotlinOptions)
+    }
     withType(JavaCompile::class.java) {
         options.encoding = "UTF-8"
         options.isDeprecation = true

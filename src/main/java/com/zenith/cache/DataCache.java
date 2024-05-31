@@ -29,7 +29,7 @@ public class DataCache {
     protected final TabListCache tabListCache = new TabListCache();
     protected final BossBarCache bossBarCache = new BossBarCache();
     protected final EntityCache entityCache = new EntityCache();
-    protected final PlayerCache playerCache = new PlayerCache(entityCache);
+    public final PlayerCache playerCache = new PlayerCache(entityCache);
     protected final ChatCache chatCache = new ChatCache();
     protected final ServerProfileCache profileCache = new ServerProfileCache();
     protected final StatisticsCache statsCache = new StatisticsCache();
@@ -39,6 +39,7 @@ public class DataCache {
     protected final ScoreboardCache scoreboardCache = new ScoreboardCache();
     protected final ConfigurationCache configurationCache = new ConfigurationCache();
     protected final CachedChunkSectionCountProvider sectionCountProvider = new CachedChunkSectionCountProvider();
+
 
     public Collection<CachedData> getAllData() {
         return Arrays.asList(profileCache, playerCache, chunkCache, statsCache, tabListCache, bossBarCache, entityCache, chatCache, mapDataCache, recipeCache, teamCache, scoreboardCache);

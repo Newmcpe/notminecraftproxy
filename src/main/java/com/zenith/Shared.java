@@ -25,6 +25,7 @@ import com.zenith.feature.items.ItemsManager;
 import com.zenith.feature.items.PlayerInventoryManager;
 import com.zenith.feature.language.LanguageManager;
 import com.zenith.feature.map.MapBlockColorManager;
+import com.zenith.feature.spinbot.SpinBot;
 import com.zenith.feature.tps.TPSCalculator;
 import com.zenith.feature.whitelist.PlayerListsManager;
 import com.zenith.feature.world.Pathing;
@@ -101,6 +102,7 @@ public class Shared {
     public static final MinotarApi MINOTAR;
     public static final PriobanApi PRIOBAN;
     public static final ZenithViaInitializer VIA_INITIALIZER;
+    public static final SpinBot SPINBOT;
     public static synchronized void loadConfig() {
         try {
             DEFAULT_LOG.info("Loading config...");
@@ -197,6 +199,7 @@ public class Shared {
         DEFAULT_LOG.debug("Launch config saved.");
     }
 
+
     static {
         try {
             Thread.setDefaultUncaughtExceptionHandler((thread, e) -> {
@@ -235,6 +238,7 @@ public class Shared {
             MINOTAR = new MinotarApi();
             PRIOBAN = new PriobanApi();
             VIA_INITIALIZER = new ZenithViaInitializer();
+            SPINBOT = new SpinBot();
             final LanguageManager languageManager = new LanguageManager();
             TranslationRegistry translationRegistry = TranslationRegistry.create(Key.key("minecraft"));
             translationRegistry.registerAll(Locale.ENGLISH, languageManager.getLanguageDataMap());

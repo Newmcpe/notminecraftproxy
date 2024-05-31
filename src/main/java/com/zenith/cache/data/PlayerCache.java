@@ -52,37 +52,37 @@ import static java.util.Objects.nonNull;
 @Setter
 @Accessors(chain = true)
 public class PlayerCache implements CachedData {
-    protected boolean hardcore;
-    protected boolean reducedDebugInfo;
-    protected int maxPlayers;
-    protected boolean enableRespawnScreen;
-    protected boolean doLimitedCrafting;
-    protected GlobalPos lastDeathPos;
-    protected int portalCooldown;
-    protected GameMode gameMode;
-    protected int heldItemSlot = 0;
+    public boolean hardcore;
+    public boolean reducedDebugInfo;
+    public int maxPlayers;
+    public boolean enableRespawnScreen;
+    public boolean doLimitedCrafting;
+    public GlobalPos lastDeathPos;
+    public int portalCooldown;
+    public GameMode gameMode;
+    public int heldItemSlot = 0;
 
-    protected EntityPlayer thePlayer = (EntityPlayer) new EntityPlayer(true).setEntityId(-1);
+    public EntityPlayer thePlayer = (EntityPlayer) new EntityPlayer(true).setEntityId(-1);
 
-    protected final InventoryCache inventoryCache = new InventoryCache();
+    public final InventoryCache inventoryCache = new InventoryCache();
 
-    protected final EntityCache entityCache;
-    protected Difficulty difficulty = Difficulty.NORMAL;
-    protected boolean isDifficultyLocked;
-    protected boolean invincible;
-    protected boolean canFly;
-    protected boolean flying;
-    protected boolean creative;
-    protected float flySpeed;
-    protected float walkSpeed;
-    protected boolean isSneaking = false;
-    protected boolean isSprinting = false;
-    protected EntityEvent opLevel = EntityEvent.PLAYER_OP_PERMISSION_LEVEL_0;
-    protected AtomicInteger actionId = new AtomicInteger(0);
+    public final EntityCache entityCache;
+    public Difficulty difficulty = Difficulty.NORMAL;
+    public boolean isDifficultyLocked;
+    public boolean invincible;
+    public boolean canFly;
+    public boolean flying;
+    public boolean creative;
+    public float flySpeed;
+    public float walkSpeed;
+    public boolean isSneaking = false;
+    public boolean isSprinting = false;
+    public EntityEvent opLevel = EntityEvent.PLAYER_OP_PERMISSION_LEVEL_0;
+    public AtomicInteger actionId = new AtomicInteger(0);
     private static final MutableVec3i DEFAULT_SPAWN_POSITION = new MutableVec3i(0, 0, 0);
-    protected MutableVec3i spawnPosition = DEFAULT_SPAWN_POSITION;
-    protected int lastTeleportReceived = 0;
-    protected int lastTeleportAccepted = 0;
+    public MutableVec3i spawnPosition = DEFAULT_SPAWN_POSITION;
+    public int lastTeleportReceived = 0;
+    public int lastTeleportAccepted = 0;
 
     public PlayerCache(final EntityCache entityCache) {
         this.entityCache = entityCache;

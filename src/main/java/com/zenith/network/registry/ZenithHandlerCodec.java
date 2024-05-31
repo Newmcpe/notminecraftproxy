@@ -226,6 +226,8 @@ public final class ZenithHandlerCodec {
                 .registerInbound(ServerboundChatPacket.class, new ChatHandler())
                 .registerInbound(ServerboundClientInformationPacket.class, ClientInformationHandler.INSTANCE)
                 .registerInbound(ServerboundCommandSuggestionPacket.class, new CommandSuggestionHandler())
+                .registerInbound(ServerboundMovePlayerRotPacket.class, new PlayerRotationHandler())
+                .registerInbound(ServerboundMovePlayerPosRotPacket.class, new PlayerPositionRotationHandler())
                 .registerInbound(ServerboundClientCommandPacket.class, new ClientCommandHandler())
                 .registerOutbound(ClientboundCommandsPacket.class, new ClientCommandsOutgoingHandler())
                 .registerOutbound(ClientboundSystemChatPacket.class, new SystemChatOutgoingHandler())

@@ -172,7 +172,7 @@ public abstract class LockingDatabase extends Database {
                     return;
                 }
             }
-            if (isNull(Proxy.getInstance()) || !Proxy.getInstance().isOnlineOn2b2tForAtLeastDuration(Duration.ofSeconds(30))) {
+            if (isNull(Proxy.getInstance()) || !false) {
                 if (hasLock() || lockAcquired.get()) {
                     releaseLock();
                     onLockReleased();

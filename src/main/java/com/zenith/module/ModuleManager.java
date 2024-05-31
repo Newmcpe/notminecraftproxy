@@ -1,5 +1,6 @@
 package com.zenith.module;
 
+import com.zenith.feature.spinbot.SpinBot;
 import com.zenith.module.impl.*;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
@@ -33,6 +34,7 @@ public class ModuleManager {
             new ReplayMod(),
             new Spammer(),
             new Spook(),
+            new SpinBot(),
             new VisualRange()
         ).forEach(m -> {
             addModule(m);

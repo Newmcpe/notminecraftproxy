@@ -41,6 +41,7 @@ public class SGameProfileOutgoingHandler implements PacketHandler<ClientboundGam
             }
             SERVER_LOG.info("Username: {} UUID: {} [{}] has passed the whitelist check!", clientGameProfile.getName(), clientGameProfile.getIdAsString(), session.getRemoteAddress());
             session.setWhitelistChecked(true);
+
             EXECUTOR.execute(() -> {
                 try {
                     // this method is called asynchronously off the event loop due to blocking calls possibly causing thread starvation
@@ -60,7 +61,7 @@ public class SGameProfileOutgoingHandler implements PacketHandler<ClientboundGam
         final GameProfile clientGameProfile = session.getFlag(MinecraftConstants.PROFILE_KEY);
         synchronized (this) {
             if (!Proxy.getInstance().isConnected()) {
-                if (CONFIG.client.extra.autoConnectOnLogin && !session.isOnlySpectator()) {
+                if (CONFIG.client.extra.autoConnectOnLogin) {
                     try {
                         Proxy.getInstance().connect();
                     } catch (final Throwable e) {

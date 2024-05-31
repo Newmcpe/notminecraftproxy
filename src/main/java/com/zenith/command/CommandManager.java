@@ -27,67 +27,68 @@ import static java.util.Arrays.asList;
 @Getter
 public class CommandManager {
     private final List<Command> commandsList = asList(
-        new ActionLimiterCommand(),
-        new ActiveHoursCommand(),
-        new AntiAFKCommand(),
-        new AntiKickCommand(),
-        new AntiLeakCommand(),
-        new AuthCommand(),
-        new AutoArmorCommand(),
-        new AutoDisconnectCommand(),
-        new AutoEatCommand(),
-        new AutoFishCommand(),
-        new AutoReconnectCommand(),
-        new AutoReplyCommand(),
-        new AutoRespawnCommand(),
-        new AutoTotemCommand(),
-        new AutoUpdateCommand(),
-        new ChatHistoryCommand(),
-        new ChatRelayCommand(),
-        new ClientConnectionCommand(),
-        new CommandConfigCommand(),
-        new ConnectCommand(),
-        new DatabaseCommand(),
-        new DebugCommand(),
-        new DisconnectCommand(),
-        new DiscordManageCommand(),
-        new DisplayCoordsCommand(),
-        new ESPCommand(),
-        new ExtraChatCommand(),
-        new FriendCommand(),
-        new HelpCommand(),
-        new IgnoreCommand(),
-        new InventoryCommand(),
-        new KickCommand(),
-        new KillAuraCommand(),
-        new MapCommand(),
-        new PlaytimeCommand(),
-        new PrioCommand(),
-        new ProxyClientConnectionCommand(),
-        new QueueStatusCommand(),
-        new QueueWarningCommand(),
-        new RaycastCommand(),
-        new ReconnectCommand(),
-        new ReleaseChannelCommand(),
-        new ReplayCommand(),
-        new RespawnCommand(),
-        new SeenCommand(),
-        new SendMessageCommand(),
-        new ServerCommand(),
-        new ServerConnectionCommand(),
-        new SkinCommand(),
-        new SpammerCommand(),
-        new SpectatorCommand(),
-        new SpookCommand(),
-        new StalkCommand(),
-        new StatsCommand(),
-        new StatusCommand(),
-        new TablistCommand(),
-        new ThemeCommand(),
-        new UpdateCommand(),
-        new ViaVersionCommand(),
-        new VisualRangeCommand(),
-        new WhitelistCommand()
+            new ActionLimiterCommand(),
+            new ActiveHoursCommand(),
+            new AntiAFKCommand(),
+            new AntiKickCommand(),
+            new AntiLeakCommand(),
+            new AuthCommand(),
+            new AutoArmorCommand(),
+            new AutoDisconnectCommand(),
+            new AutoEatCommand(),
+            new AutoFishCommand(),
+            new AutoReconnectCommand(),
+            new AutoReplyCommand(),
+            new AutoRespawnCommand(),
+            new AutoTotemCommand(),
+            new AutoUpdateCommand(),
+            new ChatHistoryCommand(),
+            new ChatRelayCommand(),
+            new ClientConnectionCommand(),
+            new CommandConfigCommand(),
+            new ConnectCommand(),
+            new DatabaseCommand(),
+            new DebugCommand(),
+            new DisconnectCommand(),
+            new DiscordManageCommand(),
+            new DisplayCoordsCommand(),
+            new ESPCommand(),
+            new ExtraChatCommand(),
+            new FriendCommand(),
+            new HelpCommand(),
+            new IgnoreCommand(),
+            new InventoryCommand(),
+            new KickCommand(),
+            new KillAuraCommand(),
+            new MapCommand(),
+            new PlaytimeCommand(),
+            new PrioCommand(),
+            new ProxyClientConnectionCommand(),
+            new QueueStatusCommand(),
+            new QueueWarningCommand(),
+            new RaycastCommand(),
+            new ReconnectCommand(),
+            new ReleaseChannelCommand(),
+            new ReplayCommand(),
+            new RespawnCommand(),
+            new SeenCommand(),
+            new SendMessageCommand(),
+            new ServerCommand(),
+            new ServerConnectionCommand(),
+            new SkinCommand(),
+            new SpammerCommand(),
+            new SpectatorCommand(),
+            new SpookCommand(),
+            new StalkCommand(),
+            new StatsCommand(),
+            new StatusCommand(),
+            new TablistCommand(),
+            new ThemeCommand(),
+            new UpdateCommand(),
+            new ViaVersionCommand(),
+            new SpinbotCommand(),
+            new VisualRangeCommand(),
+            new WhitelistCommand()
     );
     private final CommandDispatcher<CommandContext> dispatcher;
     private final Supplier<CommandNode[]> MCProtocolLibCommandNodesSupplier;
@@ -96,12 +97,12 @@ public class CommandManager {
         this.dispatcher = new CommandDispatcher<>();
         registerCommands();
         this.MCProtocolLibCommandNodesSupplier = Suppliers.memoize(
-            // should be safe to cache as we don't mutate zenith commands after startup
-            () -> BrigadierToMCProtocolLibConverter.convertNodesToMCProtocolLibNodes(this.dispatcher));
+                // should be safe to cache as we don't mutate zenith commands after startup
+                () -> BrigadierToMCProtocolLibConverter.convertNodesToMCProtocolLibNodes(this.dispatcher));
     }
 
     public void registerCommands() {
-       commandsList.forEach(this::registerCommand);
+        commandsList.forEach(this::registerCommand);
     }
 
     public List<Command> getCommands() {
@@ -110,8 +111,8 @@ public class CommandManager {
 
     public List<Command> getCommands(final CommandCategory category) {
         return commandsList.stream()
-            .filter(command -> category == CommandCategory.ALL || command.commandUsage().getCategory() == category)
-            .toList();
+                .filter(command -> category == CommandCategory.ALL || command.commandUsage().getCategory() == category)
+                .toList();
     }
 
     private void registerCommand(final Command command) {
@@ -154,12 +155,12 @@ public class CommandManager {
 
     private int executeWithHandlers(final CommandContext context, final ParseResults<CommandContext> parse) throws CommandSyntaxException {
         var commandNodeOptional = parse.getContext()
-            .getNodes()
-            .stream()
-            .findFirst()
-            .map(ParsedCommandNode::getNode)
-            .filter(node -> node instanceof CaseInsensitiveLiteralCommandNode)
-            .map(node -> ((CaseInsensitiveLiteralCommandNode<CommandContext>) node));
+                .getNodes()
+                .stream()
+                .findFirst()
+                .map(ParsedCommandNode::getNode)
+                .filter(node -> node instanceof CaseInsensitiveLiteralCommandNode)
+                .map(node -> ((CaseInsensitiveLiteralCommandNode<CommandContext>) node));
         var errorHandler = commandNodeOptional.flatMap(CaseInsensitiveLiteralCommandNode::getErrorHandler);
         var successHandler = commandNodeOptional.flatMap(CaseInsensitiveLiteralCommandNode::getSuccessHandler);
 
@@ -191,8 +192,8 @@ public class CommandManager {
         try {
             var suggestions = this.dispatcher.getCompletionSuggestions(parse).get(2L, TimeUnit.SECONDS);
             return suggestions.getList().stream()
-                .map(Suggestion::getText)
-                .toList();
+                    .map(Suggestion::getText)
+                    .toList();
         } catch (final Exception e) {
             TERMINAL_LOG.warn("Failed to get command completions for input: " + input);
             return List.of();

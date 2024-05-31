@@ -1,7 +1,7 @@
 package com.zenith.module.impl;
 
 import com.zenith.feature.esp.GlowingEntityMetadataPacketHandler;
-import com.zenith.module.Module;
+    import com.zenith.module.Module;
 import com.zenith.network.registry.PacketHandlerCodec;
 import com.zenith.network.registry.PacketHandlerStateCodec;
 import com.zenith.network.registry.ZenithHandlerCodec;

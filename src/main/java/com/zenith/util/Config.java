@@ -427,6 +427,8 @@ public final class Config {
             public final ServerTimeout timeout = new ServerTimeout();
             public final Whitelist whitelist = new Whitelist();
             public final ESP esp = new ESP();
+            public final Spinbot spinbot = new Spinbot();
+
             public final ChatHistory chatHistory = new ChatHistory();
 
             public static class ChatHistory {
@@ -452,6 +454,12 @@ public final class Config {
 
             public static final class ESP {
                 public boolean enable = false;
+            }
+
+            public static final class Spinbot {
+                public boolean enable = false;
+                public int delay = 100;
+                public int speed = 10;
             }
         }
 
