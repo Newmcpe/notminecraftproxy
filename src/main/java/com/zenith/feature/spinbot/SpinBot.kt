@@ -11,10 +11,14 @@ import org.geysermc.mcprotocollib.protocol.data.ProtocolState
 import org.geysermc.mcprotocollib.protocol.packet.ingame.serverbound.player.ServerboundMovePlayerRotPacket
 import org.geysermc.mcprotocollib.protocol.packet.ingame.serverbound.player.ServerboundPlayerActionPacket
 import java.util.*
-import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.fixedRateTimer
 
 class SpinBot : Module() {
+
+    private var currentYaw = 0.0
+    private var currentPitch = 0
+
+    private lateinit var timerTask: Timer
     var codec: PacketHandlerCodec = PacketHandlerCodec
         .builder()
         .setId("spinbot")
@@ -25,32 +29,28 @@ class SpinBot : Module() {
         )
         .build()
 
-    private lateinit var timerTask: Timer
-
-    private var currentYaw = 0.0
-    private var currentPitch = 0
-
     override fun subscribeEvents() {}
 
     override fun shouldBeEnabled(): Boolean = Shared.CONFIG.server.extra.spinbot.enable
 
     override fun onEnable() {
         ZenithHandlerCodec.CLIENT_REGISTRY.register(codec)
-        timerTask = fixedRateTimer("spinbot", period = Shared.CONFIG.server.extra.spinbot.delay.toLong(), daemon = true) {
-            if (Proxy.getInstance().isConnected && !lock.isLocked) {
-                val player = Proxy.getInstance().client ?: return@fixedRateTimer
-                currentPitch = -currentPitch
-                player.send(
-                    ServerboundMovePlayerRotPacket(
-                        true,
-                        newYaw(),
-                        newPitch(),
+        timerTask =
+            fixedRateTimer("spinbot", period = Shared.CONFIG.server.extra.spinbot.delay.toLong(), daemon = true) {
+                if (Proxy.getInstance().isConnected) {
+                    val player = Proxy.getInstance().client ?: return@fixedRateTimer
+                    currentPitch = -currentPitch
+                    player.send(
+                        ServerboundMovePlayerRotPacket(
+                            true,
+                            newYaw(),
+                            newPitch(),
+                        )
                     )
-                )
-            } else {
-                Thread.sleep(10000)
+                } else {
+                    Thread.sleep(10000)
+                }
             }
-        }
 
     }
 
@@ -73,9 +73,5 @@ class SpinBot : Module() {
             currentPitch = -90
         }
         return currentPitch.toFloat()
-    }
-
-    companion object {
-        val lock = ReentrantLock()
     }
 }
