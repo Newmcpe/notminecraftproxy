@@ -72,13 +72,13 @@ val shade: Configuration by configurations.creating
 configurations.implementation.get().extendsFrom(shade)
 val lombokVersion = "1.18.32"
 val postgresVersion = "42.7.3"
-val nettyVersion = "4.1.109.Final"
+val nettyVersion = "4.1.110.Final"
 val fastutilVersion = "b3ff25af48"
 val jdbiVersion = "3.45.1"
 
 dependencies {
     //kotlin coroutines
-    shade("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    shade("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
     shade("org.jdbi:jdbi3-core:$jdbiVersion")
     shade("org.jdbi:jdbi3-postgres:$jdbiVersion")
     shade("com.zaxxer:HikariCP:5.1.0")
@@ -86,7 +86,7 @@ dependencies {
     shade("org.eclipse.jgit:org.eclipse.jgit:6.9.0.202403050737-r")
     shade("org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:6.9.0.202403050737-r")
     shade("com.github.mwiede:jsch:0.2.17")
-    shade("com.google.guava:guava:33.2.0-jre")
+    shade("com.google.guava:guava:33.2.1-jre")
     shade("org.apache.commons:commons-collections4:4.4")
     shade("ch.qos.logback:logback-classic:1.5.6")
     shade("org.slf4j:slf4j-api:2.0.13")
@@ -119,7 +119,7 @@ dependencies {
     shade("de.themoep:minedown-adventure:1.7.2-SNAPSHOT")
     shade("org.cloudburstmc.math:api:2.0")
     shade("org.cloudburstmc.math:immutable:2.0")
-    shade("org.redisson:redisson:3.30.0") {
+    shade("org.redisson:redisson:3.31.0") {
         exclude(group = "io.netty")
     }
     shade("com.github.rfresh2.fastutil:object-object-maps:$fastutilVersion")
