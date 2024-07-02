@@ -6,7 +6,7 @@ plugins {
     java
     id("org.graalvm.buildtools.native") version "0.10.2"
     // todo: use official version when https://github.com/johnrengelman/shadow/pull/879 is merged
-    id("io.github.goooler.shadow") version "8.1.7"
+    id("io.github.goooler.shadow") version "8.1.8"
     kotlin("jvm") version "2.0.0"
     kotlin("plugin.lombok") version "2.0.0"
 }
@@ -70,30 +70,30 @@ repositories {
 
 val shade: Configuration by configurations.creating
 configurations.implementation.get().extendsFrom(shade)
-val lombokVersion = "1.18.32"
+val lombokVersion = "1.18.34"
 val postgresVersion = "42.7.3"
-val nettyVersion = "4.1.109.Final"
+val nettyVersion = "4.1.111.Final"
 val fastutilVersion = "b3ff25af48"
-val jdbiVersion = "3.45.1"
+val jdbiVersion = "3.45.2"
 
 dependencies {
     //kotlin coroutines
-    shade("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    shade("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
     shade("org.jdbi:jdbi3-core:$jdbiVersion")
     shade("org.jdbi:jdbi3-postgres:$jdbiVersion")
     shade("com.zaxxer:HikariCP:5.1.0")
     shade("org.postgresql:postgresql:$postgresVersion")
-    shade("org.eclipse.jgit:org.eclipse.jgit:6.9.0.202403050737-r")
-    shade("org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:6.9.0.202403050737-r")
-    shade("com.github.mwiede:jsch:0.2.17")
-    shade("com.google.guava:guava:33.2.0-jre")
+    shade("org.eclipse.jgit:org.eclipse.jgit:6.10.0.202406032230-r")
+    shade("org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:6.10.0.202406032230-r")
+    shade("com.github.mwiede:jsch:0.2.18")
+    shade("com.google.guava:guava:33.2.1-jre")
     shade("org.apache.commons:commons-collections4:4.4")
     shade("ch.qos.logback:logback-classic:1.5.6")
     shade("org.slf4j:slf4j-api:2.0.13")
     shade("org.slf4j:jul-to-slf4j:2.0.13")
     shade("com.mojang:brigadier:1.2.9")
     shade("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.1")
-    shade("com.github.rfresh2:SimpleEventBus:1.1")
+    shade("com.github.rfresh2:SimpleEventBus:1.2")
     shade("com.github.rfresh2.Discord4j:discord4j-core:3f91d0f9a8") {
         exclude(group = "io.netty")
     }
@@ -116,10 +116,10 @@ dependencies {
     shade("io.netty:netty-transport-native-epoll:$nettyVersion:linux-x86_64")
     shade("io.netty:netty-transport-native-unix-common:$nettyVersion:linux-x86_64")
     shade("io.netty:netty-resolver-dns-native-macos:$nettyVersion:osx-aarch_64")
-    shade("de.themoep:minedown-adventure:1.7.2-SNAPSHOT")
+    shade("de.themoep:minedown-adventure:1.7.3-SNAPSHOT")
     shade("org.cloudburstmc.math:api:2.0")
     shade("org.cloudburstmc.math:immutable:2.0")
-    shade("org.redisson:redisson:3.30.0") {
+    shade("org.redisson:redisson:3.32.0") {
         exclude(group = "io.netty")
     }
     shade("com.github.rfresh2.fastutil:object-object-maps:$fastutilVersion")
@@ -128,13 +128,13 @@ dependencies {
     shade("com.github.rfresh2.fastutil:long-object-maps:$fastutilVersion")
     shade("com.github.rfresh2.fastutil:int-int-maps:$fastutilVersion")
     shade("com.github.rfresh2.fastutil:reference-object-maps:$fastutilVersion")
-    shade("net.raphimc:ViaLoader:3.0.0-20240517.153411-1")
-    shade("com.viaversion:viaversion:5.0.0-20240521.184911-15")
-    shade("com.viaversion:viabackwards:5.0.0-20240521.111710-6")
-    shade("org.jline:jline:3.26.1")
-    shade("org.jline:jline-terminal-jansi:3.26.1")
+    shade("net.raphimc:ViaLoader:3.0.1")
+    shade("com.viaversion:viaversion:5.0.1")
+    shade("com.viaversion:viabackwards:5.0.1")
+    shade("org.jline:jline:3.26.2")
+    shade("org.jline:jline-terminal-jansi:3.26.2")
     shade("ar.com.hjg:pngj:2.1.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.3")
     compileOnly("org.projectlombok:lombok:$lombokVersion")
     testCompileOnly("org.projectlombok:lombok:$lombokVersion")
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
